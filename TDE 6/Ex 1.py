@@ -13,9 +13,9 @@ def UserInput(Texto = ""):
 def CriarMatriz(Linhas,Colunas):
     Matriz = []
     Count = 1
-    for i in range(Linhas):
+    for linha in range(Linhas):
         TempColunas = []
-        for i in range(Colunas):
+        for coluna in range(Colunas):
             TempColunas.append(UserInput(f"Entre com o {Count}° número"))
             Count += 1
         Matriz.append(TempColunas)

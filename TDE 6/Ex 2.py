@@ -26,7 +26,7 @@ def CriarMatriz(Linhas,Colunas):
 def MultiplicarMatrix(Matriz,Multi):
     MatrizMultiplicada = []
     for Linhas in range(len(Matriz)):
-        MatrizMultiplicada.append([Matriz[Linhas][Elemento] * Multi for Elemento in range(len(Matriz[0]))]) 
+        MatrizMultiplicada.append([Matriz[Linhas][Elemento] * Multi for Elemento in range(len(Matriz[0]))]) #Eu não achei que isso ia dar certo
     return MatrizMultiplicada
 
 MatrizOriginal = CriarMatriz(3,3)
