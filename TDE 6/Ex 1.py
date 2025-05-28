@@ -21,8 +21,6 @@ def CriarMatriz(Linhas,Colunas):
         Matriz.append(TempColunas)
     return Matriz
 
-Matriz = CriarMatriz(4,4)
-
 def MaiorNaColuna(TempMatriz):
     Maiores = []
     for Linha in range(len(TempMatriz)):
@@ -36,6 +34,7 @@ def MaiorNaColuna(TempMatriz):
 def MediaVetor(Vetor):
     return sum(Vetor)/len(Vetor)
 
+Matriz = CriarMatriz(4,4)
 print("Matriz: ")
 for i in Matriz:
     print(i)
