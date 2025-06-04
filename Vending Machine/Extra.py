@@ -47,4 +47,9 @@ def DuplicarMatriz(Matriz):
         MatrizDupe.append(Matriz[i])
     return MatrizDupe
 
+def PrintMatriz (Matriz, Mensagem = ""):
+    print(Mensagem)
+    for linha in Matriz:
+        print(linha)
+
 

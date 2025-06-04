@@ -8,16 +8,16 @@ Bebidas = [ #Id, Nome, Preço, Estoque
 ]
 
 Notas = [  # Valor, Quantidade
-    [200, 0],
-    [100, 0],
-    [50, 0],
-    [20, 1],
-    [10, 0],
-    [5, 0],
-    [2, 0],
-    [1, 0],
-    [0.10, 0],
-    [0.1, 0]
+    [200, 5],
+    [100, 5],
+    [50, 5],
+    [20, 5],
+    [10, 5],
+    [5, 5],
+    [2, 5],
+    [1, 5],
+    [0.10, 5],
+    [0.1, 5]
 ]
 def UserInput(Texto = ""):
     while True:
@@ -27,6 +27,7 @@ def UserInput(Texto = ""):
             print("Insira um valor válido")
 
 def PegarPosição(BebidaID): # Pega a Posição da bebida baseada no ID (Poderia só fazer -1 mas assim fica mais bonitinho)
+    BebidaID = int(BebidaID)
     for pos in range(len(Bebidas)):  #Roda pela Matriz
         if BebidaID == Bebidas[pos][0]: #Checa se o ID é igual ao item 0 da linha
             return pos #Retorna a posição do id na matriz
@@ -41,9 +42,14 @@ def ChecarEstoque (BebidaPos): # Check para o estoque disponivel da bebida
 def Pagamento(Pagamento,BebidaPos):
     if Pagamento >= Bebidas[BebidaPos][2]:
         Troco = Pagamento - Bebidas[BebidaPos][2]
-        print(f"Pagamento aprovado!\nSeu troco é de {Troco} reais")
-        #Dimimuir ewstoque bebida
-        return Troco
+        TrocoLista = CalcularTroco(Notas,Troco)
+        if TrocoLista != Notas:
+            print(f"Pagamento aprovado!")
+            Bebidas[BebidaPos][3] -= 1
+            return TrocoLista #Botar Função para imprimir matriz aq(oudps)
+        else:
+            print("Não foi possível processar o seu troco, favor inserir uma quantia diferente")
+            return -1
     else: 
         print("Seu pagamento é inválido!")
         return -1
@@ -64,21 +70,43 @@ def CalcularTroco(Notas,Troco):
     NotasDupe = Extra.DuplicarMatriz(Notas)
 
     for i in range(len(Notas)):
-        while Notas[i][0] <= Troco and Notas[i][1] != 0: #Checa o valor da nota e se tem estoque
+        while float(Notas[i][0]) <= Troco and Notas[i][1] != 0: #Checa o valor da nota e se tem estoque
             Notas[i][1] -= 1
-            Troco -= Notas[i][0]
+            Troco -= float(Notas[i][0])
             TrocoLista[i][1] += 1
     if Troco == 0:
         return Extra.Remover0s(TrocoLista,1)
     else:
         return NotasDupe
+    
+BebidaPos = 0
+while True:
+    while BebidaPos == 0:
+        SelUser = UserInput("Insira o ID do produto")
+        BebidaPos = PegarPosição(SelUser)
+        if BebidaPos != 0:
+            break
+        print("ID Inválido")
+    while True:
+        if (ChecarEstoque(BebidaPos)):
+            PagamentoUser = UserInput(f"O produto custa R${Bebidas[BebidaPos][2]}\nInsira o valor pago")
+            TrocoUser = CalcularTroco(Notas,PagamentoUser)
+            print(TrocoUser)
+            if TrocoUser != -1:
+                Extra.PrintMatriz(TrocoUser,"O seu troco é:")
+                break
 
-'''def GodMode(Pin):
-    if Pin != 0000:
-        return
-    else:
-        escolha = UserInput(f"1 - Editar/n2 - Adicionar\n 3 - Remover")'''
+        
+
+
+
+
 
 # Checkar se Lista recebida é diferente da original de troco
 # Caso seja continuar
 # Caso não seja, pedir outro pagamento do usuário
+'''def Extra(Pin):
+    if Pin != 0000:
+        return
+    else:
+        escolha = UserInput(f"1 - Editar/n2 - Adicionar\n 3 - Remover")'''
