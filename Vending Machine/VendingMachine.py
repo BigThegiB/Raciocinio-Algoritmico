@@ -1,4 +1,4 @@
-import Godmode
+import Extra
 Bebidas = [ #Id, Nome, Preço, Estoque
     [1, "Coca-cola", 3.75, 2],
     [2, "Pepsi", 3.67, 5],
@@ -7,18 +7,18 @@ Bebidas = [ #Id, Nome, Preço, Estoque
     [5, "Redbull", 13.99, 2]
 ]
 
-Troco = { # Nota : Quantidade de notas
-    0.1: 5,
-    0.10: 5,
-    1: 5,
-    2: 5,
-    5: 5,
-    10: 5,
-    20: 5,
-    50: 5,
-    100: 5,
-    200: 5
-}
+Notas = [  # Valor, Quantidade
+    [200, 0],
+    [100, 0],
+    [50, 0],
+    [20, 1],
+    [10, 0],
+    [5, 0],
+    [2, 0],
+    [1, 0],
+    [0.10, 0],
+    [0.1, 0]
+]
 def UserInput(Texto = ""):
     while True:
         try:
@@ -38,9 +38,40 @@ def ChecarEstoque (BebidaPos): # Check para o estoque disponivel da bebida
         return True # retorna true caso haja estoque
     else: return False # Se não houver, retorna false
 
-def Pagamento(NotasPagas,BebidaPos):
-    if sum(NotasPagas) > Bebidas[BebidaPos][2]:
-        Troco = sum(NotasPagas) - Bebidas[BebidaPos][2]
+def Pagamento(Pagamento,BebidaPos):
+    if Pagamento >= Bebidas[BebidaPos][2]:
+        Troco = Pagamento - Bebidas[BebidaPos][2]
+        print(f"Pagamento aprovado!\nSeu troco é de {Troco} reais")
+        #Dimimuir ewstoque bebida
+        return Troco
+    else: 
+        print("Seu pagamento é inválido!")
+        return -1
+    
+def CalcularTroco(Notas,Troco):
+    TrocoLista = [  # Valor, Quantidade
+    [200, 0],
+    [100, 0],
+    [50, 0],
+    [20, 0],
+    [10, 0],
+    [5, 0],
+    [2, 0],
+    [1, 0],
+    [0.10, 0],
+    [0.1, 0]
+    ]
+    NotasDupe = Extra.DuplicarMatriz(Notas)
+
+    for i in range(len(Notas)):
+        while Notas[i][0] <= Troco and Notas[i][1] != 0: #Checa o valor da nota e se tem estoque
+            Notas[i][1] -= 1
+            Troco -= Notas[i][0]
+            TrocoLista[i][1] += 1
+    if Troco == 0:
+        return Extra.Remover0s(TrocoLista,1)
+    else:
+        return NotasDupe
 
 '''def GodMode(Pin):
     if Pin != 0000:
@@ -48,7 +79,6 @@ def Pagamento(NotasPagas,BebidaPos):
     else:
         escolha = UserInput(f"1 - Editar/n2 - Adicionar\n 3 - Remover")'''
 
-
-Godmode.Editar(0,Bebidas)
-
-print(Bebidas)
+# Checkar se Lista recebida é diferente da original de troco
+# Caso seja continuar
+# Caso não seja, pedir outro pagamento do usuário

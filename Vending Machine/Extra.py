@@ -5,13 +5,6 @@ def UserInput(Type, Texto = ""):
         except ValueError:
             print("Insira um valor válido")
 
-Bebidas = [ #Id, Nome, Preço, Estoque
-    [1, "Coca-cola", 3.75, 2],
-    [2, "Pepsi", 3.67, 5],
-    [3, "Monster", 9.96, 1],
-    [4, "Café", 1.25, 100],
-    [5, "Redbull", 13.99, 2]
-]
 
 def Editar(ItemPos,Bebidas):
     while True:
@@ -27,3 +20,31 @@ def Editar(ItemPos,Bebidas):
         return
     print("Alteração concluída")
     return
+
+TrocoLista = [  # Valor, Quantidade
+[200, 0],
+[100, 0],
+[50, 2],
+[20, 0],
+[10, 4],
+[5, 0],
+[2, 0],
+[1, 0],
+[0.10, 0],
+[0.1, 0]
+]
+
+def Remover0s(Matriz,Coluna):
+    MatrizDupe = []
+    for i in range(len(Matriz)):
+        if Matriz[i][Coluna] != 0:
+            MatrizDupe.append(Matriz[i])
+    return MatrizDupe
+
+def DuplicarMatriz(Matriz):
+    MatrizDupe = []
+    for i in range(len(Matriz)):
+        MatrizDupe.append(Matriz[i])
+    return MatrizDupe
+
+
