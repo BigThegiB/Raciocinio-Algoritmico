@@ -8,16 +8,18 @@ Bebidas = [ #Id, Nome, Preço, Estoque
 ]
 
 Notas = [  # Valor, Quantidade
-    [200, 5],
-    [100, 5],
-    [50, 5],
-    [20, 5],
-    [10, 5],
-    [5, 5],
-    [2, 5],
-    [1, 5],
-    [0.10, 5],
-    [0.1, 5]
+    [200, 100],
+    [100, 100],
+    [50, 100],
+    [20, 100],
+    [10, 100],
+    [5, 100],
+    [2, 100],
+    [1, 100],
+    [0.50, 100],
+    [0.10, 100],
+    [0.1, 100],
+    [0.01, 100]
 ]
 def UserInput(Texto = ""):
     while True:
@@ -41,12 +43,12 @@ def ChecarEstoque (BebidaPos): # Check para o estoque disponivel da bebida
 
 def Pagamento(Pagamento,BebidaPos):
     if Pagamento >= Bebidas[BebidaPos][2]:
-        Troco = Pagamento - Bebidas[BebidaPos][2]
+        Troco = round(Pagamento - Bebidas[BebidaPos][2] , 2)
         TrocoLista = CalcularTroco(Notas,Troco)
         if TrocoLista != Notas:
             print(f"Pagamento aprovado!")
             Bebidas[BebidaPos][3] -= 1
-            return TrocoLista #Botar Função para imprimir matriz aq(oudps)
+            return Extra.Remover0s(TrocoLista,1) #Botar Função para imprimir matriz aq(oudps)
         else:
             print("Não foi possível processar o seu troco, favor inserir uma quantia diferente")
             return -1
@@ -64,8 +66,10 @@ def CalcularTroco(Notas,Troco):
     [5, 0],
     [2, 0],
     [1, 0],
+    [0.50, 0],
     [0.10, 0],
-    [0.1, 0]
+    [0.1, 0],
+    [0.01, 0]
     ]
     NotasDupe = Extra.DuplicarMatriz(Notas)
 
@@ -73,9 +77,10 @@ def CalcularTroco(Notas,Troco):
         while float(Notas[i][0]) <= Troco and Notas[i][1] != 0: #Checa o valor da nota e se tem estoque
             Notas[i][1] -= 1
             Troco -= float(Notas[i][0])
+            Troco = round(Troco, 2)
             TrocoLista[i][1] += 1
     if Troco == 0:
-        return Extra.Remover0s(TrocoLista,1)
+        return TrocoLista
     else:
         return NotasDupe
     
@@ -90,21 +95,16 @@ while True:
     while True:
         if (ChecarEstoque(BebidaPos)):
             PagamentoUser = UserInput(f"O produto custa R${Bebidas[BebidaPos][2]}\nInsira o valor pago")
-            TrocoUser = CalcularTroco(Notas,PagamentoUser)
-            print(TrocoUser)
+            TrocoUser = Pagamento(PagamentoUser,BebidaPos)
             if TrocoUser != -1:
                 Extra.PrintMatriz(TrocoUser,"O seu troco é:")
                 break
+    Escolha = input(f"Deseja comprar outro produto?\n1- Sim\n 2- Não")
+    if Escolha != 1:
+        print("Obrigado por usar a nossa máquina :D")
+        break
 
         
-
-
-
-
-
-# Checkar se Lista recebida é diferente da original de troco
-# Caso seja continuar
-# Caso não seja, pedir outro pagamento do usuário
 '''def Extra(Pin):
     if Pin != 0000:
         return

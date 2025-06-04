@@ -21,18 +21,6 @@ def Editar(ItemPos,Bebidas):
     print("Alteração concluída")
     return
 
-TrocoLista = [  # Valor, Quantidade
-[200, 0],
-[100, 0],
-[50, 2],
-[20, 0],
-[10, 4],
-[5, 0],
-[2, 0],
-[1, 0],
-[0.10, 0],
-[0.1, 0]
-]
 
 def Remover0s(Matriz,Coluna):
     MatrizDupe = []
@@ -42,10 +30,9 @@ def Remover0s(Matriz,Coluna):
     return MatrizDupe
 
 def DuplicarMatriz(Matriz):
-    MatrizDupe = []
-    for i in range(len(Matriz)):
-        MatrizDupe.append(Matriz[i])
-    return MatrizDupe
+    MatrizDupe = [coluna[:] for coluna in Matriz] # [:] serve para dividir uma parte especifica da matriz, mas também retorna os valores de verdade, diferente do append q só referencia
+    return MatrizDupe #Cont. Então o código está pegando cada linha da matriz e fazendo uma cópia da seção que foi dividida, como o [:] não está recebendo valores, copia a linha toda
+
 
 def PrintMatriz (Matriz, Mensagem = ""):
     print(Mensagem)
